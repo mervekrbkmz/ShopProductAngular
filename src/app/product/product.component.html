@@ -1,13 +1,15 @@
 <!-- Ürünleri Listeleme -->
-
 <!-- directive yapısı: ngIf: ürün varsa göster yoksa ; else -->
 <!--iteret etmek:dolaşnak demektir.-->
 <!-- currency: fiyat olarak gösterir -->
 
 <h5 *ngIf="products; else: noProduct"><i>{{title}}</i></h5>
 <div class="mb-3">
-    <input class="form-control" id="productName" placeholder="Arama metninizi giriniz"/>
-    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+    <!-- binding yöntemi-iki yönlü etkilenme.-->
+    <input class="form-control"  id="productName" [(ngModel)]="filterText"  placeholder="Arama metninizi giriniz"/>
+    <small *ngIf="filterText"></small>
+    <div id="emailHelp" class="form-text"> Şu an {{filterText}} aradınız. </div>
+
 </div>
 <ng-template #noProduct>
     <div class="alert alert-primary" role="alert">
@@ -16,13 +18,15 @@
 </ng-template>
 <!--letle tanımladığımız zaman o div-in için çağırmamız gerekir scopetan ötürü-->
 <div class="row">
-    <div *ngFor="let product of products" class="card" style="width: 18rem;">
+    <!-- döngüye pipe yaptık ve productfiltere parametresini de verdik. -->
+    <div *ngFor="let product of products | productFilter:filterText" class="card" style="width: 18rem;">
         <div class="card" style="width: 18rem;">
             <!-- src için ; buraya bağlamamız lazım bu şekilde. -->
             <img [src]="product.imageUrl" class="card-img-top" alt="..." />
             <div class="card-body">
                 <h5 class="card-title">{{product.name}} {{product.price | currency}}</h5>
                 <p class="card-text">{{product.description}}</p>
+                <a (click)="addToCard(product)" class="btn btn-primary"> Sepete Ekle</a>
             </div>
         </div>
     </div>
