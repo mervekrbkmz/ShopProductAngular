@@ -27,8 +27,8 @@ products:Product[]=[
  ]
   ngOnInit(): void {
   }
-
   addToCard(product:Product) {
+    
     swal({
       text:"Sepete Eklendi : "+ product.name,
       icon: "success",
