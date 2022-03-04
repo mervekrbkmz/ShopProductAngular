@@ -96,7 +96,10 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+          "../node_modules/sweetalert/dist/sweetalert.min.js"
+
+            ]
           }
         }
       }

@@ -6,6 +6,5 @@ export class Product {
     categoryId:number;
     description:string;
     imageUrl:string;
-
     
 }

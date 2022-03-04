@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from './product';
-
+import swal from 'sweetalert';
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
@@ -29,8 +29,10 @@ products:Product[]=[
   }
 
   addToCard(product:Product) {
-
-    alert("Sepete Eklendi : "+ product.name)
+    swal({
+      text:"Sepete Eklendi : "+ product.name,
+      icon: "success",
+    });
   }
 
 }
