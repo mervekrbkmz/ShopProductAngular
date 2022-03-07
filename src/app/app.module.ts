@@ -10,6 +10,7 @@ import { ProductComponent } from './product/product.component';
 import { UnlessDirective } from './unless.directive';
 import { HighlightDirective } from './highlight.directive';
 import { ProductFilterPipe } from './product/product-filter.pipe';
+import { AlertifyService } from './services/alertify.service';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,7 @@ import { ProductFilterPipe } from './product/product-filter.pipe';
     AppRoutingModule,
     FormsModule
   ],
-  providers: [],
+  providers: [AlertifyService], 
   bootstrap: [AppComponent]
 })
 export class AppModule { }

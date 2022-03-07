@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { AlertifyService } from '../services/alertify.service';
 import { Product } from './product';
-import swal from 'sweetalert';
+// import swal from 'sweetalert';
+
+
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
@@ -8,11 +11,11 @@ import swal from 'sweetalert';
 })
 export class ProductComponent implements OnInit {
 
-constructor() { }
+
+constructor(public alertifyService:AlertifyService) { }
 title= "Ürün Listesi"
 filterText="";
- //fazla ürün istediğim için dizi olarak tutucam
- //any: hangi tip gelirse gelsin anlamında. .
+
 products:Product[]=[
 {id:1,name:"Coffee",price:25,categoryId:1,description:"Perfect",imageUrl:"https://images.unsplash.com/photo-1646257861487-60fa89bef25f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwzMnx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60"},
 {id:2,name:"Province",price:6500,categoryId:2,description:"",imageUrl:"https://images.unsplash.com/photo-1613591723536-65e664a9ebac?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw0Mnx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60"},
@@ -29,10 +32,12 @@ products:Product[]=[
   }
   addToCard(product:Product) {
     
-    swal({
-      text:"Sepete Eklendi : "+ product.name,
-      icon: "success",
-    });
+    // swal({
+    //   text:"Sepete Eklendi : "+ product.name,
+    //   icon: "success",
+    // });
+  this.alertifyService.success(product.name + "Added" )
+
   }
 
 }
