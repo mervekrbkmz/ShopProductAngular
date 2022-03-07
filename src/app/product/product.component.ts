@@ -12,7 +12,7 @@ import { Product } from './product';
 export class ProductComponent implements OnInit {
 
 
-constructor(public alertifyService:AlertifyService) { }
+constructor(private alertifyService:AlertifyService) { }
 title= "Ürün Listesi"
 filterText="";
 
