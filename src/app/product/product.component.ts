@@ -19,22 +19,26 @@ export class ProductComponent implements OnInit {
 
   products: Product[];
   //burayı apiden gelen datayla doldurdum.
+  path="http://localhost:3344/products";
+
 
   //component açıldığında ngonİnit çalışır.
   ngOnInit(): void {
     //product nesnesinin product tipinde olduğunu map ettim.
-    this.http.get<Product[]>("http://localhost:3344/products")
+    this.http.get<Product[]>(this.path)
     .subscribe(data => { //dataya n'apıcağımı yazdım. dataya subscribe oldum.
     this.products = data;
     }); //subscribe ile ilgili datayı istediğimizi belirtir.
 
   }
   addToCard(product: Product) {
+
     // swal({
     //   text:"Sepete Eklendi : "+ product.name,
     //   icon: "success",
     // });
     this.alertifyService.success(product.name + "Added")
+
   }
 
 }
