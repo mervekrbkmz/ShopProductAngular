@@ -2,42 +2,39 @@ import { Component, OnInit } from '@angular/core';
 import { AlertifyService } from '../services/alertify.service';
 import { Product } from './product';
 // import swal from 'sweetalert';
-
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
-  styleUrls: ['./product.component.css']
+  styleUrls: ['./product.component.css'],
+  providers: [AlertifyService] //lokal tanımlama yapmak istersek buraya gelip yazıyoruz.
 })
 export class ProductComponent implements OnInit {
+  //oninitin implemente edilmesiyle ngonInit oluşur.
 
+  constructor(private alertifyService: AlertifyService, private http: HttpClient) { }
+  title = "Ürün Listesi"
+  filterText = "";
 
-constructor(private alertifyService:AlertifyService) { }
-title= "Ürün Listesi"
-filterText="";
+  products: Product[];
+  //burayı apiden gelen datayla doldurdum.
 
-products:Product[]=[
-{id:1,name:"Coffee",price:25,categoryId:1,description:"Perfect",imageUrl:"https://images.unsplash.com/photo-1646257861487-60fa89bef25f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwzMnx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60"},
-{id:2,name:"Province",price:6500,categoryId:2,description:"",imageUrl:"https://images.unsplash.com/photo-1613591723536-65e664a9ebac?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw0Mnx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60"},
-{id:3,name:"Notebook",price:6500,categoryId:3,description:"Macbook Pro",imageUrl:"https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8bm90ZWJvb2t8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60"},
-{id:4,name:"City",price:10000,categoryId:4,description:"Super",imageUrl:"https://images.unsplash.com/photo-1645621760780-a486038186ec?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDI5fHJuU0tESHd3WVVrfHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60"},
-{id:5,name:"Build",price:8500,categoryId:5,description:"Dangerous",imageUrl:"https://images.unsplash.com/photo-1645902912432-c6f872feb95b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDE3fDZzTVZqVExTa2VRfHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60"},
-{id:6,name:"Coffee",price:25,categoryId:6,description:"Perfect",imageUrl:"https://images.unsplash.com/photo-1646257861487-60fa89bef25f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwzMnx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60"},
-{id:7,name:"Province",price:6500,categoryId:7,description:"",imageUrl:"https://images.unsplash.com/photo-1613591723536-65e664a9ebac?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw0Mnx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60"},
-{id:8,name:"Notebook",price:6500,categoryId:8,description:"Macbook Pro",imageUrl:"https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8bm90ZWJvb2t8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60"},
-{id:9,name:"City",price:10000,categoryId:9,description:"Super",imageUrl:"https://images.unsplash.com/photo-1645621760780-a486038186ec?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDI5fHJuU0tESHd3WVVrfHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60"},
-{id:10,name:"Build",price:8500,categoryId:10,description:"Dangerous",imageUrl:"https://images.unsplash.com/photo-1645902912432-c6f872feb95b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDE3fDZzTVZqVExTa2VRfHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60"}
- ]
+  //component açıldığında ngonİnit çalışır.
   ngOnInit(): void {
+    //product nesnesinin product tipinde olduğunu map ettim.
+    this.http.get<Product[]>("http://localhost:3344/products")
+    .subscribe(data => { //dataya n'apıcağımı yazdım. dataya subscribe oldum.
+    this.products = data;
+    }); //subscribe ile ilgili datayı istediğimizi belirtir.
+
   }
-  addToCard(product:Product) {
-    
+  addToCard(product: Product) {
     // swal({
     //   text:"Sepete Eklendi : "+ product.name,
     //   icon: "success",
     // });
-  this.alertifyService.success(product.name + "Added" )
-
+    this.alertifyService.success(product.name + "Added")
   }
 
 }

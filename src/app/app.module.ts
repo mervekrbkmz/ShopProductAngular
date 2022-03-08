@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
+import  {HttpClientModule} from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -17,17 +18,20 @@ import { AlertifyService } from './services/alertify.service';
     AppComponent,
     NavComponent,
     CategoryComponent,
-    ProductComponent,
+    ProductComponent, 
     UnlessDirective,
     HighlightDirective,
-    ProductFilterPipe,
+    ProductFilterPipe
+
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule //yeni module oluşturdu  
+    
   ],
-  providers: [AlertifyService], 
+  providers: [AlertifyService], //global
   bootstrap: [AppComponent]
 })
 export class AppModule { }
