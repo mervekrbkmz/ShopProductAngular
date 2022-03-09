@@ -32,5 +32,4 @@ export class ProductComponent implements OnInit {
     this.alertifyService.success(product.name + "Added")
 
   }
-
 }

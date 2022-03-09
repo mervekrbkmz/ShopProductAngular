@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { AlertifyService } from '../services/alertify.service';
 import { Category } from './category';
+import { CategoryService } from '../services/category.service';
 
 @Component({
   selector: 'app-category',
@@ -7,16 +9,10 @@ import { Category } from './category';
   styleUrls: ['./category.component.css']
 })
 export class CategoryComponent implements OnInit {
-  constructor() { }
+  constructor(private categoryService:CategoryService,private alertifyService:AlertifyService) { }
   title= "Kategori Listesi"
-  categories: Category[] =
-    [
-      { id: 1, name: "Elektronik" },
-      { id: 2 ,name: "Bilgisayar" },
-      { id: 3 ,name: "Televizyon" },
-      { id: 4 ,name: "Müzik" },
-      { id: 5 ,name: "İletişim" },
-    ]
+  categories: Category[];
   ngOnInit(): void {
+    
   }
 }
